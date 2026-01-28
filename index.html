@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>RSL | Comunicación Visual & Seguridad</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#000,#0a0a0a);
+  color:#fff;
+  text-align:center;
+}
+
+/* HERO */
+.hero{padding:60px 20px}
+.logo{
+  max-width:220px;
+  margin-bottom:30px;
+  filter:drop-shadow(0 0 25px rgba(255,215,0,.4))
+}
+#rotating-title{
+  font-size:28px;
+  margin-bottom:10px;
+  transition:opacity .5s ease
+}
+#rotating-text{
+  font-size:16px;
+  max-width:600px;
+  margin:0 auto;
+  opacity:.85;
+  transition:opacity .5s ease
+}
+
+/* REDES */
+.socials{
+  margin-top:35px;
+  display:flex;
+  justify-content:center;
+  gap:20px
+}
+.icon{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  box-shadow:0 0 20px rgba(255,255,255,.15);
+  transition:transform .4s ease
+}
+.icon:hover{transform:scale(1.15)}
+.tiktok{background:radial-gradient(circle,#25f4ee,#000)}
+.instagram{background:radial-gradient(circle at top right,#f58529,#8134af)}
+.facebook{background:radial-gradient(circle,#1877f2,#0b3c8c)}
+
+/* MENSAJE */
+.message{
+  padding:40px 20px;
+  background:rgba(255,255,255,.03)
+}
+
+/* OFERTA */
+.offer{padding:60px 20px}
+.offer h2{font-size:26px}
+.subtitle{opacity:.7;margin-bottom:25px}
+form{
+  max-width:320px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px
+}
+input,select{
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  font-size:14px
+}
+button{
+  padding:14px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(135deg,#d4af37,#ffdd77);
+  font-weight:bold;
+  cursor:pointer
+}
+button:hover{opacity:.9}
+.hidden{display:none}
+.success{color:#d4af37;margin-bottom:15px}
+.promo-img{
+  width:90%;
+  max-width:420px;
+  border-radius:15px;
+  box-shadow:0 0 30px rgba(212,175,55,.4);
+  margin:20px auto
+}
+.cta{
+  display:inline-block;
+  margin-top:20px;
+  padding:14px 25px;
+  border-radius:25px;
+  background:#25d366;
+  color:#000;
+  font-weight:bold;
+  text-decoration:none
+}
+
+/* WHATSAPP FLOTANTE */
+.whatsapp-float{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:radial-gradient(circle at top left,#4cff88,#1a7f3c);
+  box-shadow:0 0 25px rgba(37,211,102,.7);
+  z-index:999
+}
+.whatsapp-float::before{
+  content:"🟢";
+  font-size:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+  <img src="imagenes/logo-rsl.png" alt="RSL" class="logo">
+
+  <h1 id="rotating-title"></h1>
+  <p id="rotating-text"></p>
+
+  <div class="socials">
+    <a href="https://www.tiktok.com/@rsmisiones" target="_blank" class="icon tiktok"></a>
+    <a href="https://www.instagram.com/rs.misiones" target="_blank" class="icon instagram"></a>
+    <a href="https://www.facebook.com/share/1D7jCyA756/" target="_blank" class="icon facebook"></a>
+  </div>
+</header>
+
+<section class="message">
+  <p>
+    Accedé a promociones exclusivas y contacto directo con RSL.
+    Todo desde un único código QR.
+  </p>
+</section>
+
+<section class="offer">
+  <h2>Promoción exclusiva</h2>
+  <p class="subtitle">Disponible solo escaneando nuestro QR</p>
+
+  <form id="form">
+    <input type="text" placeholder="Tu nombre" required>
+    <input type="tel" placeholder="Tu WhatsApp" required>
+    <select required>
+      <option value="">¿Cómo llegaste hasta nosotros?</option>
+      <option>Tarjeta</option>
+      <option>QR en cartel</option>
+      <option>Redes sociales</option>
+      <option>Recomendación</option>
+      <option>Otro</option>
+    </select>
+    <button type="submit">Desbloquear promoción</button>
+  </form>
+
+  <div id="promo" class="hidden">
+    <p class="success">Promoción activa de la semana</p>
+    <img src="imagenes/promocion.jpg" class="promo-img">
+    <a href="https://wa.me/5493764144012" class="cta">Consultar por WhatsApp</a>
+  </div>
+</section>
+
+<a href="https://wa.me/5493764144012" class="whatsapp-float" target="_blank"></a>
+
+<script>
+const content=[
+  {title:"Tecnología en Seguridad",text:"Cámaras de seguridad profesionales, instalación y mantenimiento para hogares y empresas."},
+  {title:"Comunicación Visual",text:"Diseño gráfico, cartelería, wrapping vehicular y soluciones visuales de alto impacto."}
+];
+let index=0;
+const titleEl=document.getElementById("rotating-title");
+const textEl=document.getElementById("rotating-text");
+
+function rotate(){
+  titleEl.style.opacity=0;
+  textEl.style.opacity=0;
+  setTimeout(()=>{
+    titleEl.textContent=content[index].title;
+    textEl.textContent=content[index].text;
+    titleEl.style.opacity=1;
+    textEl.style.opacity=1;
+    index=(index+1)%content.length;
+  },500);
+}
+rotate();
+setInterval(rotate,4000);
+
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  document.getElementById("form").style.display="none";
+  document.getElementById("promo").classList.remove("hidden");
+});
+</script>
+
+</body>
+  </html>
